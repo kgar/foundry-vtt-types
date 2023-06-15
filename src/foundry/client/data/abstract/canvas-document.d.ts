@@ -5,7 +5,8 @@ import { ClientDocumentMixin } from "./client-document";
 declare global {
   // TODO: Replace ConstructorOf<…> with DocumentConstructor once the problem with circular reference has been solved
   /**
-   * A specialized sub-class of the ClientDocumentMixin which is used for document types that are intended to be represented upon the game Canvas.
+   * A specialized sub-class of the ClientDocumentMixin which is used for document types that are intended to be
+   * represented upon the game Canvas.
    */
   const CanvasDocumentMixin: <T extends ConstructorOf<foundry.abstract.Document<any, any>>>(
     Base: T
@@ -42,7 +43,7 @@ declare class CanvasDocumentMixin<T extends foundry.abstract.Document<any, any>>
   /**
    * A reference to the CanvasLayer which contains Document objects of this type.
    */
-  get layer(): PlaceablesLayer<any>; // TODO: Replace with InstanceType<LayerClass<T>> | null once the circular reference problem has been solved
+  get layer(): PlaceablesLayer<any> | null; // TODO: Replace with InstanceType<LayerClass<T>> | null once the circular reference problem has been solved
 
   /**
    * An indicator for whether this document is currently rendered on the game canvas.
@@ -52,16 +53,12 @@ declare class CanvasDocumentMixin<T extends foundry.abstract.Document<any, any>>
   /**
    * @see abstract.Document#_onCreate
    */
-  protected _onCreate(data: T["data"]["_source"], options: DocumentModificationOptions, userId: string): void;
+  protected _onCreate(data: T["data"], options: DocumentModificationOptions, userId: string): void;
 
   /**
    * @see abstract.Document#_onUpdate
    */
-  protected _onUpdate(
-    data: DeepPartial<T["data"]["_source"]>,
-    options: DocumentModificationOptions,
-    userId: string
-  ): void;
+  protected _onUpdate(data: DeepPartial<T["data"]>, options: DocumentModificationOptions, userId: string): void;
 
   /**
    * @see abstract.Document#_onDelete
